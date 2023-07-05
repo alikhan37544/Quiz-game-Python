@@ -1,0 +1,28 @@
+body {
+    font-family: Arial, sans-serif;
+}
+
+h1, h2 {
+    text-align: center;
+}
+
+button {
+    margin-top: 20px;
+}
+
+#question-container, #result-container {
+    margin-top: 30px;
+}
+
+#answers {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+#answers li {
+    margin-bottom: 10px;
+}
+
+#result {
+    font-weight: bold;
+}
