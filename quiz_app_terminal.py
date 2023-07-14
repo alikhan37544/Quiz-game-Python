@@ -1,5 +1,6 @@
 import requests
 import random
+import html
 
 # Getting data from the API
 response = requests.get("https://opentdb.com/api.php?amount=1")
@@ -15,9 +16,10 @@ question = question_data['question']
 correct_answer = question_data['correct_answer']
 incorrect_answers = question_data['incorrect_answers']
 
-# # Fixing the HTML 
-# question, correct_answer, incorrect_answers = question.replace
+# "Unescaping" the characters for proper display
+question_data, category, difficulty, question, correct_answer, incorrect_answers = html.unescape(question_data), html.unescape(category), html.unescape(difficulty), html.unescape(question), html.unescape(correct_answer), html.unescape(incorrect_answers)
 
+# Shuffling the options
 options = [correct_answer]
 for char in incorrect_answers:
     options.append(char)
@@ -33,6 +35,7 @@ print("")
 
 print("Your options are as follows: ")
 
+# Logic for correction
 i = 1
 for char in options:
     print(f"{i} : {char}")
