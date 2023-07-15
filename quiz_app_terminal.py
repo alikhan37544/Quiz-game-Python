@@ -35,7 +35,7 @@ print("")
 
 print("Your options are as follows: ")
 
-# Logic for correction
+# Logic for checking correction
 i = 1
 for char in options:
     print(f"{i} : {char}")
