@@ -6,7 +6,14 @@ import html
 response = requests.get("https://opentdb.com/api.php?amount=1")
 data = response.json()
 
+## Feature 
+
 # print(data)
+
+## Beta feature : Ask the user to choose the category ,difficulty and type of question
+# code here vvvvvvvvvvvv
+
+# code here ^^^^^^^^^^^^^
 
 # Categorising the data
 question_data = data['results'][0]
