@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 import requests
 
 app = Flask(__name__)
@@ -10,14 +10,8 @@ question = ""
 correct_answer = ""
 incorrect_answers = []
 
-# Route for the home page
-@app.route('/')
-def home():
-    return render_template('index.html')
-
-# Route to fetch a new quiz question from the API
-@app.route('/get_question')
-def get_question():
+# Function to fetch a new quiz question from the API
+def fetch_question():
     global category, difficulty, question, correct_answer, incorrect_answers
 
     # Fetch data from the API
@@ -32,7 +26,22 @@ def get_question():
     correct_answer = question_data['correct_answer']
     incorrect_answers = question_data['incorrect_answers']
 
-    return ''
+# Route for the home page
+@app.route('/')
+def home():
+    fetch_question()  # Fetch the initial question
+    return render_template('index.html', category=category, difficulty=difficulty, question=question, options=incorrect_answers + [correct_answer])
+
+# Route to check the user's answer
+@app.route('/check_answer', methods=['POST'])
+def check_answer():
+    user_answer = request.form['answer']
+    if user_answer == correct_answer:
+        result = "Congratulations, you've guessed correctly"
+    else:
+        result = f"Sorry, wrong option. The correct option was {correct_answer}"
+    fetch_question()  # Fetch a new question for the next round
+    return render_template('index.html', category=category, difficulty=difficulty, question=question, options=incorrect_answers + [correct_answer], result=result)
 
 if __name__ == '__main__':
     app.run(debug=True)
